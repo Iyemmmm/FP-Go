@@ -1,0 +1,218 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.navbar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+  height: 50px;
+}
+
+.navbar-nav .nav-link {
+  color: #333;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #dc3545; /* Red */
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b); /* Red/Orange gradient */
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-section .btn-primary-custom {
+  background-color: white;
+  color: #ff7e5f; /* Light red */
+  border: none;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.hero-section .btn-primary-custom:hover {
+  background-color: #ff7e5f; /* Light red */
+  color: white;
+}
+
+/* Features Section */
+.features-section {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+}
+
+.feature-card {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+}
+
+.feature-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* About Section */
+.about-section {
+  background-color: #f8f9fa;
+  padding: 100px 0;
+}
+
+.about-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.about-section p {
+  line-height: 1.8;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.about-section img {
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu Section */
+.menu-section {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+}
+
+.menu-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.menu-container {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-items {
+  flex: 0 1 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.menu-card {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+}
+
+.menu-card img {
+  border-radius: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  height: auto;
+}
+
+.btn-add-to-cart {
+  background-color: #ff7e5f; /* Light red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.btn-add-to-cart:hover {
+  background-color: #e0664d; /* Darker light red */
+}
+
+/* Order Summary */
+.order-summary-container {
+  flex: 0 1 30%;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Reservation Section */
+.reservation-section {
+  padding: 60px 0;
+}
+
+.reservation-form {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.reservation-title h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 5px;
+}
+
+.btn-reserve {
+  background-color: #ff7e5f; /* Light red */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.btn-reserve:hover {
+  background-color: #e0664d; /* Darker light red */
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* General Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
