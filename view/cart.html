@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>    
+                <th>Menu</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Note</th>   
+                <th>Status</th>   
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .carts }}
+            <tr>
+                <td>{{ .Menu.Nama }}</td>
+                <td>{{ .Quantity }}</td>
+                <td>{{ .Total }}</td>
+                <td>{{ .Note }}</td>
+                <td>{{ .Status }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+
+</body>
+</html>
