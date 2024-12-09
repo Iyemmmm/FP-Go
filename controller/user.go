@@ -2,11 +2,16 @@ package controller
 
 import (
 	"net/http"
+	"os"
 	"resto/initializers"
 	"resto/model"
 	"resto/util"
+    "time"
+
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 	"gorm.io/gorm"
+    "github.com/joho/godotenv"
 )
 
 var DB *gorm.DB
@@ -62,6 +67,7 @@ func ViewLogin(c *gin.Context) {
 }
 
 func LoginUser(c *gin.Context){
+    godotenv.Load()
     email:=c.PostForm("email")
     password:=c.PostForm("password")
 
@@ -77,5 +83,25 @@ func LoginUser(c *gin.Context){
 		return
     }
 
+    token:=jwt.NewWithClaims(jwt.SigningMethodHS256,jwt.MapClaims{
+        "sub" : user.ID,
+        "exp" : time.Now().Add(time.Hour * 24).Unix(),
+    })
+
+    tokenString, tokenerr := token.SignedString([]byte(os.Getenv("SECRET")))
+
+    if tokenerr != nil {
+        c.JSON(http.StatusBadRequest,gin.H{
+            "error":"Invalid to create token",
+        })
+        return 
+    }
+    c.SetSameSite(http.SameSiteLaxMode)
+    c.SetCookie("Authorization",tokenString,3600,"","",false,true)
     c.Redirect(http.StatusFound, "/")
+}
+
+func Logout(c *gin.Context){
+    c.SetCookie("Authorization", "",-1, "", "", false, true)
+    c.Redirect(http.StatusFound, "/login")
 }
