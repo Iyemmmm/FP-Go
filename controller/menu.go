@@ -24,7 +24,9 @@ func ViewMenu(c *gin.Context) {
 
 	log.Println("Menu data:", menu)
 	// Kirim data ke template HTML
-	c.HTML(http.StatusOK, "menu.html", gin.H{"products": menu})
+	c.HTML(http.StatusOK, "menu.html", gin.H{
+		"products": menu,
+	})
 }
 
 func AddMenu(c *gin.Context,uploadPath string){

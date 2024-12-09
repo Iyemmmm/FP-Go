@@ -40,52 +40,44 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <form id="reservationForm" class="reservation-form">
+                    <form action="" method="post" id="reservationForm" class="reservation-form">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                <input type="text" class="form-control" id="name" name="nama" placeholder="Enter your name" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="phone">Phone</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter your phone number" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="date">Date</label>
-                                <input type="text" class="form-control flatpickr" id="date" placeholder="Choose a date" required>
+                                <input type="text" class="form-control flatpickr" name="date" id="date" placeholder="Choose a date" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="time">Time</label>
-                                <input type="text" class="form-control flatpickr-time" id="time" placeholder="Choose a time" required>
+                                <input type="text" class="form-control flatpickr-time" name="time" id="time" placeholder="Choose a time" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="guests">Number of Guests</label>
-                                <select class="form-control" id="guests" required>
-                                    <option value="" disabled selected>Choose number of guests</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6+">6 or more</option>
-                                </select>
+                                <label for="guest">Number of Guests</label>
+                                <input class="form-control" type="number" placeholder="Choose number of guest" name="guests" id="guest" required min="1">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="message">Special Requests</label>
-                            <textarea id="message" class="form-control" rows="4" placeholder="Any special requests?"></textarea>
+                            <input type="text" name="note" id="message" class="form-control" placeholder="Any special requests?">
                         </div>
                         <div class="text-center">
                             <br>
-                            <button type="submit" class="btn btn-reserve">Reserve Now</button>
+                            <input type="submit" name="submit" class="btn btn-reserve"> 
                         </div>
                     </form>
                 </div>
@@ -119,20 +111,6 @@
             });
         });
 
-        // Reservation Form Submission
-        document.getElementById("reservationForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const date = document.getElementById("date").value;
-            const time = document.getElementById("time").value;
-            const guests = document.getElementById("guests").value;
-            const message = document.getElementById("message").value;
-
-            alert(`Reservation Confirmed:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nGuests: ${guests}\nRequests: ${message}`);
-        });
     </script>
 </body>
 

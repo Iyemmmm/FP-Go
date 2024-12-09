@@ -2,16 +2,19 @@ package initializers
 
 import (
 	"fmt"
+	"os"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"github.com/joho/godotenv"
 )
 
 var DB *gorm.DB
 
 func ConnectDatabase(){
 	var err error
-	dsn := "root:@tcp(127.0.0.1:3306)/fp_store?charset=utf8mb4&parseTime=True&loc=Local"
+	godotenv.Load()
+	dsn := os.Getenv("DB_NAME")
   	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil{

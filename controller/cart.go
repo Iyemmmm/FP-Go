@@ -7,14 +7,15 @@ import (
 	"resto/initializers"
 	"resto/model"
 	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 func ViewCart(c *gin.Context) {
+	usercookies,_:=c.Get("User")
+	user:=usercookies.(model.User)
 	var cart []model.Cart
-	carts:= initializers.DB.Preload("Menu").Where("id_user = ?", 11).Find(&cart)
+	carts:= initializers.DB.Preload("Menu").Where("id_user = ?", user.ID).Find(&cart)
 
 	if carts.Error != nil{
 		log.Println("Error fetching carts:", carts.Error)
@@ -28,7 +29,9 @@ func ViewCart(c *gin.Context) {
 }
 
 func AddCart(c *gin.Context){
-	id_user,_:=strconv.ParseUint(c.PostForm("id_user"),10,64)
+	usercookies,_:=c.Get("User")
+	user:=usercookies.(model.User)
+	id_user:=user.ID
 	id_menu,_:=strconv.ParseUint(c.PostForm("id_menu"),10,64) 
 	fmt.Println(id_user,id_menu)
 	quantity,_:=strconv.ParseFloat(c.PostForm("quantity"),64)

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"resto/controller"
 	"resto/initializers"
+	"resto/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,10 +29,11 @@ func main(){
 		c.HTML(http.StatusOK,"about.html",nil)
 	})
 	
-	r.GET("/menu",controller.ViewMenu)
-	r.POST("/menu",controller.AddCart)
+	r.GET("/menu",middleware.RequireAuth,controller.ViewMenu)
+	r.POST("/menu",middleware.RequireAuth,controller.AddCart)
 
-	r.GET("/reservation",controller.ViewReservation)
+	r.GET("/reservation",middleware.RequireAuth,controller.ViewReservation)
+	r.POST("/reservation",middleware.RequireAuth,controller.AddReservation)
 
 	r.GET("/register",controller.ViewRegister)
 	r.POST("/register",controller.CreateUser)
@@ -46,7 +48,9 @@ func main(){
 		controller.AddMenu(c,pathImg)
 	})
 
-	r.GET("/cart",controller.ViewCart)
+	r.GET("/cart",middleware.RequireAuth,controller.ViewCart)
+
+	r.GET("/logout",controller.Logout)
 
 	r.Run(":8080")
 }
