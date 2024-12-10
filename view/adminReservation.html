@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Data Reservations</title>
+  <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Cart</h1>
+    </header>
+    
+    <main>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Reservasi</th>
+              <th>Nama Customer</th>
+              <th>Guest</th>
+              <th>Date</th>
+              <th>Time</th>   
+              <th>Note</th>   
+              <th>Status</th> 
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .reservations }}
+            <tr>
+              <td>{{ .ID }}</td>
+              <td>{{ .User.Nama }}</td>
+              <td>{{ .Guest }}</td>
+              <td>{{ .Date }}</td>
+              <td>{{ .Waktu }}</td>
+              <td>{{ .Note }}</td>
+              <td>{{ .Status }}</td>
+              <td>
+                <form action="" method="post">
+                  <input type="hidden" name="idreservation" value="{{ .ID }}">
+                  <input class="btn-edit" id="edit" type="submit" name="action" value="Edit">
+                  <input class="btn-delete" id="edit" type="submit" name="action" value="Delete">
+                </form>
+              </td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

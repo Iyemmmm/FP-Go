@@ -48,7 +48,15 @@ func main(){
 		controller.AddMenu(c,pathImg)
 	})
 
+	r.GET("/reservation-status",middleware.RequireAuth,controller.ViewStatus)
 	r.GET("/cart",middleware.RequireAuth,controller.ViewCart)
+
+	r.GET("/dashboard",middleware.AdminMiddleware,controller.Dashboard)
+
+	r.GET("/dashboard/menu",middleware.AdminMiddleware,controller.GetMenu)
+	r.POST("/dashboard/menu",middleware.AdminMiddleware,controller.EditMenu)
+	r.GET("/dashboard/reservation",middleware.AdminMiddleware,controller.GetReservation)
+	r.POST("/dashboard/reservation",middleware.AdminMiddleware,controller.EditReservation)
 
 	r.GET("/logout",controller.Logout)
 

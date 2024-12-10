@@ -2,11 +2,11 @@ package controller
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"resto/initializers"
 	"resto/model"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,14 +26,10 @@ func AddReservation(c *gin.Context) {
 	note := c.PostForm("note")
 	hp := c.PostForm("phone")
 	dateStr := c.PostForm("date")
-	parsedDate, _ := time.Parse("2006-01-02", dateStr)
-	waktuStr := dateStr
-	waktuStr += " "
-	waktuStr += c.PostForm("time")
-	waktuStr += (":00")
-	parsedWaktu, _ := time.Parse("2006-01-02 15:04:05", waktuStr)
-	fmt.Println(dateStr, parsedDate)
-	fmt.Println(waktuStr, parsedWaktu)
+	waktuStr := c.PostForm("time")
+	// parsedWaktu, _ := time.Parse("2006-01-02 15:04:05", waktuStr)
+	// fmt.Println(dateStr, parsedDate)
+	// fmt.Println(waktuStr, parsedWaktu)
 	guest, _ := strconv.ParseInt(c.PostForm("guests"), 10, 64)
 
 	reservation := model.Reservation{
@@ -42,9 +38,10 @@ func AddReservation(c *gin.Context) {
 		Email:   email,
 		Note:    note,
 		NoHP:    hp,
-		Date:    parsedDate,
+		Date:    dateStr,
 		Guest:   int(guest),
-		Waktu:   parsedWaktu,
+		Waktu:   waktuStr,
+		Status: "PENDING",
 	}
 	result := initializers.DB.Create(&reservation)
 	if result.Error != nil {
@@ -52,5 +49,22 @@ func AddReservation(c *gin.Context) {
 		return
 	}
 
-	c.Redirect(http.StatusFound, "/")
+	c.Redirect(http.StatusFound, "/reservation-status")
+}
+
+func ViewStatus(c *gin.Context) {
+	usercookies, _ := c.Get("User")
+	user := usercookies.(model.User)
+	var reservation []model.Reservation
+	result:=initializers.DB.Preload("User").Where("id_user = ?", user.ID).Find(&reservation)
+
+	if result.Error != nil {
+		log.Println("Error fetching resrvation:", result.Error)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch reservations"})
+		return
+	}
+	log.Println("Reservation data:", reservation)
+	// Kirim data ke template HTML
+	c.HTML(http.StatusOK, "reservation-status.html", gin.H{"reservations": reservation})
+
 }

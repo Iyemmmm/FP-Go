@@ -8,3 +8,5 @@ import (
 func Welcome(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
+
+

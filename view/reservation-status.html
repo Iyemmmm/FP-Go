@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>    
+                <th>ID Reservasi</th>
+                <th>Guest</th>
+                <th>Date</th>
+                <th>Time</th>   
+                <th>Note</th>   
+                <th>Status</th>   
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .reservations }}
+            <tr>
+                <td>{{ .ID }}</td>
+                <td>{{ .Guest }}</td>
+                <td>{{ .Date }}</td>
+                <td>{{ .Waktu }}</td>
+                <td>{{ .Note }}</td>
+                <td>{{ .Status }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+
+</body>
+</html>
