@@ -26,6 +26,7 @@ func CreateUser(c *gin.Context) {
     password:=c.PostForm("password")
     confirmpassword:=c.PostForm("confirmpassword")
     hp:=c.PostForm("nohp")
+    role:="user"
 
 	// Validasi password
 	if password != confirmpassword {
@@ -51,6 +52,7 @@ func CreateUser(c *gin.Context) {
         Email: email,
         Password: password,
         NoHP: hp,
+        Role: role,
     }
 	result := initializers.DB.Create(&account)
     
@@ -96,9 +98,13 @@ func LoginUser(c *gin.Context){
         })
         return 
     }
+    if user.Role == "admin" {
+        c.Redirect(http.StatusFound, "/dashboard")
+    }else{
+        c.Redirect(http.StatusFound, "/")
+    }
     c.SetSameSite(http.SameSiteLaxMode)
     c.SetCookie("Authorization",tokenString,3600,"","",false,true)
-    c.Redirect(http.StatusFound, "/")
 }
 
 func Logout(c *gin.Context){
