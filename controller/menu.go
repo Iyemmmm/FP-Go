@@ -57,5 +57,5 @@ func AddMenu(c *gin.Context, uploadPath string) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
-	c.Redirect(http.StatusFound, "/dashboard/menu")
+	c.Redirect(http.StatusFound, "/menu")
 }

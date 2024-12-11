@@ -24,12 +24,12 @@ func main(){
 	r.Static("/upload", "./upload")
 
 	
-	r.GET("/",controller.Welcome)
+	r.GET("/",middleware.IsLogin,controller.Welcome)
 	r.GET("/about",func(c *gin.Context){
 		c.HTML(http.StatusOK,"about.html",nil)
 	})
 	
-	r.GET("/menu",middleware.RequireAuth,controller.ViewMenu)
+	r.GET("/menu",controller.ViewMenu)
 	r.POST("/menu",middleware.RequireAuth,controller.AddCart)
 
 	r.GET("/reservation",middleware.RequireAuth,controller.ViewReservation)

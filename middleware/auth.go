@@ -46,7 +46,7 @@ func RequireAuth(c *gin.Context) {
 		}
 
 		if user.Role != "user" {
-			c.JSON(http.StatusForbidden, gin.H{"error": "Forbidden"})
+			c.Redirect(http.StatusFound, "/login")
 			c.Abort()
 			return
 		}
@@ -92,7 +92,7 @@ func AdminMiddleware(c *gin.Context) {
 		}
 
 		if user.Role != "admin" {
-			c.JSON(http.StatusForbidden, gin.H{"error": "Forbidden"})
+			c.Redirect(http.StatusFound, "/login")
 			c.Abort()
 			return
 		}
@@ -104,3 +104,14 @@ func AdminMiddleware(c *gin.Context) {
 	}
 
 }
+
+func IsLogin(c *gin.Context) {
+	_, err := c.Cookie("Authorization")
+	if err != nil {
+		c.Set("id",false)
+	}else{
+		c.Set("id",true)
+	}
+	c.Next()
+}
+
