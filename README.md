@@ -11,8 +11,8 @@ This web application is a restaurant management platform designed to enhance cus
 
 ## Features
 1. **Menu Browsing**  
-   - Full menu display with categories. 
-   - Item details such as name, description, price, and images.  
+   - Full menu and cart display. 
+   - Item details such as name, price, and images.  
 
 2. **Table-side Ordering**  
    - Place orders directly from the table using the web application.  
@@ -21,13 +21,13 @@ This web application is a restaurant management platform designed to enhance cus
 
 3. **Reservation System**  
    - Book tables for specific dates and times in advance.  
-   - View available slots and receive reservation confirmation.  
+   - View reservation confirmation.  
 
 4. **User Accounts**  
    - User accounts for viewing past orders and reservations.  
 
 5. **Admin Dashboard**  
-   - Manage menu items and pricing.  
+   - Add menu items.  
    - View and process live orders and reservations.  
 
 6. **Responsive Design**  
