@@ -22,6 +22,18 @@ body {
   color: #dc3545; /* Red */
 }
 
+.logout-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #dc3545;
+  color: white;
+}
+.logout-btn:hover {
+  background-color: #a71d2a;
+  color: white;
+}
+
 /* Hero Section */
 .hero-section {
   background: linear-gradient(to bottom right, #ff7e5f, #feb47b); /* Red/Orange gradient */
@@ -97,55 +109,121 @@ body {
 
 /* Menu Section */
 .menu-section {
-  background-color: #f8f9fa;
+  background-color: #f4f6f9;
   padding: 60px 0;
 }
 
-.menu-section h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
+h1.text-center {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
 }
 
 .menu-container {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
 .menu-items {
-  flex: 0 1 70%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr); /* Ensures 4 cards per row */
+  gap: 30px;
+  justify-items: center;
+  margin-top: 40px;
 }
 
 .menu-card {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 10px;
   background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 280px; /* Adjusted for a smaller card size */
+}
+
+.menu-card:hover {
+  transform: translateY(-10px);
+}
+
+.menu-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.menu-card-body {
+  padding: 20px;
   text-align: center;
 }
 
-.menu-card img {
-  border-radius: 10px;
+.menu-card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.menu-card-price {
+  font-size: 1.2rem;
+  color: #e66a2d;
+  font-weight: 600;
   margin-bottom: 15px;
-  width: 100%;
-  height: auto;
 }
 
 .btn-add-to-cart {
   background-color: #ff7e5f; /* Light red */
   color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 500;
   border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .btn-add-to-cart:hover {
-  background-color: #e0664d; /* Darker light red */
+  background-color: #e66a2d; /* Darker red */
+}
+
+/* Go to Cart Button */
+.btn-cart {
+  background-color: #ff7e5f; /* Light red */
+  color: white;
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between the icon and text */
+}
+
+.btn-cart:hover {
+  background-color: #e66a2d; /* Darker red */
+}
+
+.btn-cart i {
+  font-size: 1.3rem; /* Size of the cart icon */
+}
+
+.btn-cart span {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-5 {
+  margin-top: 3rem;
 }
 
 /* Order Summary */

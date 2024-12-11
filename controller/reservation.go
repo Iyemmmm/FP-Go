@@ -41,7 +41,7 @@ func AddReservation(c *gin.Context) {
 		Date:    dateStr,
 		Guest:   int(guest),
 		Waktu:   waktuStr,
-		Status: "PENDING",
+		Status:  "PENDING",
 	}
 	result := initializers.DB.Create(&reservation)
 	if result.Error != nil {
@@ -56,7 +56,7 @@ func ViewStatus(c *gin.Context) {
 	usercookies, _ := c.Get("User")
 	user := usercookies.(model.User)
 	var reservation []model.Reservation
-	result:=initializers.DB.Preload("User").Where("id_user = ?", user.ID).Find(&reservation)
+	result := initializers.DB.Preload("User").Where("id_user = ?", user.ID).Find(&reservation)
 
 	if result.Error != nil {
 		log.Println("Error fetching resrvation:", result.Error)

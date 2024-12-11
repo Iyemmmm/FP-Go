@@ -1,33 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>    
-                <th>Menu</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Note</th>   
-                <th>Status</th>   
-            </tr>
-        </thead>
-        <tbody>
-            {{ range .carts }}
-            <tr>
-                <td>{{ .Menu.Nama }}</td>
-                <td>{{ .Quantity }}</td>
-                <td>{{ .Total }}</td>
-                <td>{{ .Note }}</td>
-                <td>{{ .Status }}</td>
-            </tr>
-            {{ end }}
-        </tbody>
-    </table>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Resto - Cart</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-</body>
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/style.min.css" />
+  </head>
+
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/"
+          ><img src="/static/img/logo.png" alt="Resto Logo"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/menu">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reservation">Reservation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <!-- Back to Menu Button -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <a href="/menu" class="btn btn-add-to-cart">
+            <i class="fas fa-arrow-left me-2"></i> Back to Menu
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center mb-4">Your Cart</h1>
+          
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="thead-light">
+                    <tr>    
+                      <th>Menu Item</th>
+                      <th>Quantity</th>
+                      <th>Total Price</th>
+                      <th>Special Notes</th>   
+                      <th>Status</th>   
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{ range .carts }}
+                    <tr>
+                      <td>{{ .Menu.Nama }}</td>
+                      <td>{{ .Quantity }}</td>
+                      <td>${{ printf "%.2f" .Total }}</td>
+                      <td>{{ .Note }}</td>
+                      <td>
+                        <span class="badge 
+                          {{ if eq .Status "Pending" }}badge-warning
+                          {{ else if eq .Status "Completed" }}badge-success
+                          {{ else if eq .Status "Cancelled" }}badge-danger
+                          {{ else }}badge-secondary
+                          {{ end }}">
+                          {{ .Status }}
+                        </span>
+                      </td>
+                      <td>
+                        <!-- <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-warning" onclick="editItem('{{ .Menu.Nama }}', {{ .Quantity }}, '{{ .Note }}')">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-danger" onclick="removeItem('{{ .Menu.Nama }}')">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div> -->
+                      </td>
+                    </tr>
+                    {{ end }}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Total Summary -->
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Order Summary</h5>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Subtotal
+                          <!-- <span>${{ printf "%.2f" .subtotal }}</span> -->
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Tax (10%)
+                          <!-- <span>${{ printf "%.2f" .tax }}</span> -->
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          <strong>Total</strong>
+                          <!-- <strong>${{ printf "%.2f" .total }}</strong> -->
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 text-right">
+                  <button class="btn btn-add-to-cart btn-lg" onclick="checkout()">
+                    Proceed to Checkout
+                    <i class="fas fa-shopping-cart ml-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+
+    <footer>
+      <p>&copy; 2024 Resto. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script>
+      function editItem(name, quantity, note) {
+        // Placeholder for edit functionality
+        alert(`Editing ${name}\nQuantity: ${quantity}\nNote: ${note}`);
+      }
+
+      function removeItem(name) {
+        // Placeholder for remove functionality
+        if(confirm(`Are you sure you want to remove ${name} from your cart?`)) {
+          // Implement remove logic
+          alert(`${name} removed from cart`);
+        }
+      }
+
+      function checkout() {
+        // Placeholder for checkout functionality
+        alert('Proceeding to checkout');
+      }
+    </script>
+  </body>
 </html>

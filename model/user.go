@@ -1,4 +1,5 @@
 package model
+
 type User struct {
 	ID       uint   `json:"iduser" gorm:"column:iduser;primaryKey;autoIncrement"`
 	Nama     string `json:"nama" gorm:"not null"`

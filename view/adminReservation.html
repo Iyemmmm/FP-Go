@@ -1,54 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Data Reservations</title>
-  <link rel="stylesheet" href="/static/css/admin.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Resto - Admin Reservations</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="/static/css/style.min.css" />
 </head>
+
 <body>
-  <div class="container">
-    <header class="header">
-      <h1>Cart</h1>
-    </header>
-    
-    <main>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>ID Reservasi</th>
-              <th>Nama Customer</th>
-              <th>Guest</th>
-              <th>Date</th>
-              <th>Time</th>   
-              <th>Note</th>   
-              <th>Status</th> 
-            </tr>
-          </thead>
-          <tbody>
-            {{ range .reservations }}
-            <tr>
-              <td>{{ .ID }}</td>
-              <td>{{ .User.Nama }}</td>
-              <td>{{ .Guest }}</td>
-              <td>{{ .Date }}</td>
-              <td>{{ .Waktu }}</td>
-              <td>{{ .Note }}</td>
-              <td>{{ .Status }}</td>
-              <td>
-                <form action="" method="post">
-                  <input type="hidden" name="idreservation" value="{{ .ID }}">
-                  <input class="btn-edit" id="edit" type="submit" name="action" value="Edit">
-                  <input class="btn-delete" id="edit" type="submit" name="action" value="Delete">
-                </form>
-              </td>
-            </tr>
-            {{ end }}
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow">
+        <div class="container">
+            <a class="navbar-brand" href="/"><img src="/static/img/logo.png" alt="Resto Logo" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard/menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/dashboard/reservation">Reservation</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h1 class="text-center mb-0">Reservation Management</h1>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Reservation ID</th>
+                                <th>Customer Name</th>
+                                <th>Number of Guests</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Note</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ if .reservations }}
+                                {{ range .reservations }}
+                                <tr>
+                                    <td>{{ .ID }}</td>
+                                    <td>{{ .User.Nama }}</td>
+                                    <td>{{ .Guest }}</td>
+                                    <td>{{ .Date }}</td>
+                                    <td>{{ .Waktu }}</td>
+                                    <td>{{ .Note }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {{ if eq .Status "Pending" }}badge-warning
+                                            {{ else if eq .Status "Confirmed" }}badge-success
+                                            {{ else if eq .Status "Cancelled" }}badge-danger
+                                            {{ else }}badge-secondary
+                                            {{ end }}">
+                                            {{ .Status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form action="" method="post" class="btn-group" role="group">
+                                            <input type="hidden" name="idreservation" value="{{ .ID }}">
+                                            <button type="submit" name="action" value="Edit" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="submit" name="action" value="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this reservation?');">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{ end }}
+                            {{ else }}
+                                <tr>
+                                    <td colspan="8" class="text-center">No reservations found</td>
+                                </tr>
+                            {{ end }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <footer class="text-center mt-4">
+        <p>&copy; 2024 Resto. All rights reserved.</p>
+    </footer> -->
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

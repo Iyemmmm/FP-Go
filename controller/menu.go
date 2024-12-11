@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"resto/initializers"
 	"resto/model"
 	"strconv"
-	"resto/initializers"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -14,9 +14,9 @@ import (
 
 func ViewMenu(c *gin.Context) {
 	var menu []model.Menu
-	products:= initializers.DB.Find(&menu)
+	products := initializers.DB.Find(&menu)
 
-	if products.Error != nil{
+	if products.Error != nil {
 		log.Println("Error fetching products:", products.Error)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch products"})
 		return
@@ -29,10 +29,10 @@ func ViewMenu(c *gin.Context) {
 	})
 }
 
-func AddMenu(c *gin.Context,uploadPath string){
-	nama :=c.PostForm("nama")
-	hargastr :=c.PostForm("harga")
-	harga,_ := strconv.ParseFloat(hargastr, 64)
+func AddMenu(c *gin.Context, uploadPath string) {
+	nama := c.PostForm("nama")
+	hargastr := c.PostForm("harga")
+	harga, _ := strconv.ParseFloat(hargastr, 64)
 	file, err := c.FormFile("image")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Image file is required"})
@@ -47,15 +47,15 @@ func AddMenu(c *gin.Context,uploadPath string){
 		return
 	}
 
-	menu:= model.Menu{
-		Nama:	nama,
-		Harga:	harga,
-		Img:	fileName,
+	menu := model.Menu{
+		Nama:  nama,
+		Harga: harga,
+		Img:   fileName,
 	}
-	result:=initializers.DB.Create(&menu)
-	if result.Error!= nil{
+	result := initializers.DB.Create(&menu)
+	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
-	c.Redirect(http.StatusFound,"/menu")
+	c.Redirect(http.StatusFound, "/dashboard/menu")
 }
