@@ -31,4 +31,7 @@ This web application is a restaurant management platform designed to enhance cus
    - View and process live orders and reservations.  
 
 6. **Responsive Design**  
-   - Accessible on mobile devices, tablets, and desktop browsers.  
+   - Accessible on mobile devices, tablets, and desktop browsers.
+
+## Website Demo
+Link: https://www.youtube.com/watch?v=T3yXkPw70Wk 
