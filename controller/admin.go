@@ -13,6 +13,10 @@ func Dashboard(c *gin.Context) {
 	c.HTML(http.StatusOK, "dashboard.html", nil)
 }
 
+func ViewAddMenu(c *gin.Context){
+	c.HTML(http.StatusOK, "addmenu.html", nil)
+}
+
 func GetMenu(c *gin.Context) {
 	var cart []model.Cart
 	result := initializers.DB.Preload("User").Preload("Menu").Find(&cart)
@@ -26,7 +30,7 @@ func GetMenu(c *gin.Context) {
 	c.HTML(http.StatusOK, "adminMenu.html", gin.H{"cart": cart})
 }
 func EditMenu(c *gin.Context) {
-	idStr, _ := strconv.ParseUint(c.PostForm("idmenu"), 10, 64)
+	idStr, _ := strconv.ParseUint(c.PostForm("idcart"), 10, 64)
 	action := c.PostForm("action")
 	id := uint(idStr)
 	var cart model.Cart

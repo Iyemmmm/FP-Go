@@ -41,11 +41,16 @@ func main(){
 	r.GET("/login",controller.ViewLogin)
 	r.POST("/login",controller.LoginUser)
 
-	r.GET("/addmenu",func(c *gin.Context) {
-		c.HTML(http.StatusOK,"addmenu.html",nil)
-	})
-	r.POST("/addmenu",func(c *gin.Context) {
-		controller.AddMenu(c,pathImg)
+	// r.GET("/addmenu",middleware.AdminMiddleware(),func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK,"addmenu.html",nil)
+	// })
+	// r.POST("/addmenu",middleware.AdminMiddleware(),func(c *gin.Context) {
+	// 	controller.AddMenu(c,pathImg)
+	// })
+
+	r.GET("/addmenu",middleware.AdminMiddleware,controller.ViewAddMenu)
+	r.POST("/addmenu", middleware.AdminMiddleware, func(c *gin.Context) {
+		controller.AddMenu(c, pathImg)
 	})
 
 	r.GET("/reservation-status",middleware.RequireAuth,controller.ViewStatus)
